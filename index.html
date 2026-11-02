@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+  <meta name="description" content="Kannan N — student developer portfolio featuring software, web, and IoT projects.">
+  <title>Kannan N | Developer Portfolio</title>
+  <style>
+    :root {
+      --bg: #080a0f;
+      --bg-soft: #10141d;
+      --panel: #121720;
+      --panel-solid: #1a202c;
+      --text: #f1f2f5;
+      --muted: #aeb5c2;
+      --line: rgba(190, 198, 213, 0.14);
+      --cyan: #d5b477;
+      --purple: #9aabc4;
+      --pink: #bd8f83;
+      --green: #9dbba4;
+      --radius: 18px;
+      --shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body {
+      font-family: Inter, "Segoe UI", system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      line-height: 1.7;
+      background: var(--bg);
+      min-height: 100vh;
+    }
+    a { color: inherit; }
+    .container { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+    .accent {
+      background: linear-gradient(100deg, var(--cyan), var(--purple) 70%, var(--pink));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* Navigation */
+    .site-header {
+      position: fixed; inset: 0 0 auto; z-index: 1000;
+      background: rgba(16, 24, 39, .94);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .logo { text-decoration: none; font-size: 1.25rem; font-weight: 850; letter-spacing: -.04em; }
+    .logo span { color: var(--cyan); }
+    .nav-links { display: flex; align-items: center; gap: 26px; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: .94rem; font-weight: 600; transition: color .2s ease; }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--cyan); }
+    .menu-toggle {
+      display: none; border: 1px solid var(--line); background: var(--panel-solid);
+      color: var(--text); border-radius: 10px; padding: 8px 12px; font-size: 1.2rem; cursor: pointer;
+    }
+
+    /* Hero */
+    .hero { padding: 160px 0 95px; min-height: 92vh; display: flex; align-items: center; }
+    .hero-grid { display: grid; grid-template-columns: 1.35fr .65fr; gap: 54px; align-items: center; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px; padding: 7px 13px;
+      border: 1px solid rgba(214, 183, 121, .24); border-radius: 999px;
+      background: rgba(214, 183, 121, .08); color: var(--cyan);
+      font-size: .83rem; font-weight: 750; letter-spacing: .06em; text-transform: uppercase;
+    }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 12px var(--green); }
+    h1 { font-size: clamp(2.7rem, 7vw, 5.4rem); line-height: 1.04; letter-spacing: -.065em; margin: 24px 0 20px; }
+    .hero-description { max-width: 650px; color: var(--muted); font-size: clamp(1.05rem, 2vw, 1.2rem); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      min-height: 48px; padding: 12px 20px; border-radius: 12px;
+      text-decoration: none; font-weight: 750; border: 1px solid transparent;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .btn:hover { transform: translateY(-3px); }
+    .btn-primary { color: #172235; background: var(--cyan); box-shadow: 0 6px 18px rgba(0, 0, 0, .18); }
+    .btn-secondary { color: var(--text); border-color: var(--line); background: rgba(255,255,255,.035); }
+    .btn-secondary:hover { border-color: rgba(145,169,201,.7); }
+    .hero-card {
+      position: relative; isolation: isolate; padding: 28px; border-radius: 28px;
+      background: var(--panel);
+      border: 1px solid var(--line); box-shadow: var(--shadow); overflow: hidden;
+    }
+    .hero-card::before {
+      content: ""; position: absolute; width: 190px; height: 190px; right: -80px; top: -80px;
+      background: var(--purple); filter: blur(95px); opacity: .025; z-index: -1;
+    }
+    .avatar {
+      width: 112px; height: 112px; display: grid; place-items: center; border-radius: 30px;
+      font-size: 2.4rem; font-weight: 900; letter-spacing: -.06em; color: #172235;
+      background: linear-gradient(135deg, #d5b477, #9aabc4, #bd8f83);
+      box-shadow: 0 10px 28px rgba(0,0,0,.22); margin-bottom: 22px;
+    }
+    .hero-card h2 { font-size: 1.3rem; margin-bottom: 6px; }
+    .hero-card p { color: var(--muted); font-size: .95rem; }
+    .mini-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+    .tag { border: 1px solid var(--line); background: rgba(255,255,255,.035); color: #d7deea; border-radius: 8px; padding: 5px 9px; font-size: .8rem; }
+
+    /* Shared sections */
+    section { padding: 88px 0; }
+    .section-heading { max-width: 700px; margin: 0 auto 44px; text-align: center; }
+    .kicker { color: var(--cyan); text-transform: uppercase; font-size: .78rem; font-weight: 800; letter-spacing: .18em; }
+    .section-heading h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.15; letter-spacing: -.045em; margin: 10px 0 14px; }
+    .section-heading p { color: var(--muted); }
+    .panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+
+    /* About */
+    .about-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 24px; }
+    .about-copy, .quick-facts { padding: 30px; }
+    .about-copy h3, .quick-facts h3 { font-size: 1.25rem; margin-bottom: 13px; }
+    .about-copy p { color: var(--muted); margin-bottom: 14px; }
+    .fact-list { display: grid; gap: 14px; }
+    .fact { display: flex; gap: 13px; align-items: flex-start; }
+    .fact-icon { flex: 0 0 38px; height: 38px; display: grid; place-items: center; border-radius: 11px; color: var(--cyan); background: rgba(214,183,121,.10); }
+    .fact strong { display: block; font-size: .95rem; }
+    .fact span { color: var(--muted); font-size: .9rem; overflow-wrap: anywhere; }
+
+    /* Skills */
+    .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .skill-card { padding: 22px; border-radius: 16px; border: 1px solid var(--line); background: var(--panel); transition: transform .2s, border-color .2s; }
+    .skill-card:hover { transform: translateY(-5px); border-color: rgba(214,183,121,.38); }
+    .skill-card .skill-icon { font-size: 1.6rem; margin-bottom: 12px; }
+    .skill-card h3 { font-size: 1.03rem; margin-bottom: 8px; }
+    .skill-card p { color: var(--muted); font-size: .88rem; }
+
+    /* Projects */
+    .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .project-card {
+      display: flex; flex-direction: column; overflow: hidden; min-height: 100%;
+      background: var(--panel); border: 1px solid var(--line); border-radius: 18px;
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+    .project-card:hover { transform: translateY(-7px); border-color: rgba(145,169,201,.42); box-shadow: 0 18px 38px rgba(0,0,0,.22); }
+    .project-visual { min-height: 150px; display: grid; place-items: center; font-size: 3rem; position: relative; overflow: hidden; }
+    .project-visual::after { content: ""; position: absolute; width: 170px; height: 100px; border-radius: 50%; filter: blur(45px); opacity: .12; }
+    .visual-cyan { background: #202a33; }
+    .visual-purple { background: #242b38; }
+    .visual-pink { background: #30272b; }
+    .project-visual span { position: relative; z-index: 1; filter: drop-shadow(0 8px 16px rgba(0,0,0,.3)); }
+    .project-info { padding: 23px; display: flex; flex-direction: column; flex: 1; }
+    .project-info h3 { font-size: 1.15rem; line-height: 1.35; margin-bottom: 11px; }
+    .project-info p { color: var(--muted); font-size: .92rem; margin-bottom: 18px; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: auto; }
+    .project-tags span { color: #d2dced; background: rgba(145,169,201,.09); border: 1px solid rgba(145,169,201,.17); border-radius: 7px; padding: 4px 8px; font-size: .75rem; }
+
+    /* Education and contact */
+    .education-card { padding: 28px; display: flex; gap: 20px; align-items: flex-start; }
+    .education-icon { width: 54px; height: 54px; flex: 0 0 54px; display: grid; place-items: center; border-radius: 15px; background: rgba(139,166,201,.12); font-size: 1.5rem; }
+    .education-card h3 { font-size: 1.15rem; margin-bottom: 4px; }
+    .education-card .school { color: var(--cyan); font-weight: 650; }
+    .education-card p { color: var(--muted); margin-top: 8px; }
+    .contact-panel { padding: clamp(26px, 5vw, 48px); text-align: center; position: relative; overflow: hidden; }
+    .contact-panel::before { content: ""; position: absolute; width: 240px; height: 140px; border-radius: 50%; left: calc(50% - 120px); top: -100px; background: var(--cyan); filter: blur(90px); opacity: .02; }
+    .contact-panel h2 { position: relative; font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -.04em; margin: 10px 0; }
+    .contact-panel p { position: relative; color: var(--muted); max-width: 620px; margin: 0 auto 24px; }
+    .contact-links { position: relative; display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
+
+    footer { border-top: 1px solid var(--line); padding: 25px 0; color: var(--muted); font-size: .88rem; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 15px; flex-wrap: wrap; }
+    .back-top { color: var(--cyan); text-decoration: none; }
+    :focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 35px; }
+      .hero { min-height: auto; }
+      .hero-card { max-width: 540px; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 680px) {
+      .container { width: min(100% - 30px, 1120px); }
+      .nav { min-height: 66px; }
+      .menu-toggle { display: inline-block; }
+      .nav-links {
+        display: none; position: absolute; top: 66px; left: 0; right: 0; padding: 18px 22px 22px;
+        flex-direction: column; align-items: flex-start; gap: 16px;
+        background: rgba(16,24,39,.99); border-bottom: 1px solid var(--line);
+      }
+      .nav-links.open { display: flex; }
+      .hero { padding: 125px 0 65px; }
+      section { padding: 65px 0; }
+      .about-grid, .projects-grid { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
+      .skill-card { padding: 17px; }
+      .about-copy, .quick-facts { padding: 23px; }
+      .education-card { padding: 22px; }
+      .footer-inner { justify-content: center; text-align: center; }
+    }
+    @media (max-width: 380px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .hero-actions .btn { width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="container nav" aria-label="Main navigation">
+      <a class="logo" href="#home" aria-label="Kannan home">Kannan N<span> </span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow"><span class="status-dot"></span> Student Developer · Building and learning</div>
+          <h1>Hi, I'm <span class="accent">Kannan N.</span><br> I build things for the web and beyond.</h1>
+          <p class="hero-description">An engineering student at VIT-AP interested in software development, web technologies, and practical IoT projects. I enjoy turning ideas into useful, working solutions.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#projects">Explore my projects <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-secondary" href="#contact">Get in touch</a>
+          </div>
+        </div>
+        <aside class="hero-card" aria-label="Portfolio profile summary">
+          <div class="avatar" aria-hidden="true">KN</div>
+          <h2>Kannan N.</h2>
+          <p>Engineering Student · Aspiring Software Developer</p>
+          <div class="mini-tags">
+            <span class="tag">Java</span><span class="tag">Python</span><span class="tag">HTML & CSS</span>
+            <span class="tag">Docker</span><span class="tag">ESP32-CAM</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-heading">
+          <span class="kicker">A little about me</span>
+          <h2>Curious mind. <span class="accent">Practical builder.</span></h2>
+          <p>I like learning by creating projects, solving problems, and exploring how software and hardware work together.</p>
+        </div>
+        <div class="about-grid">
+          <article class="panel about-copy">
+            <h3>Who I am</h3>
+            <p>I'm Kannan, an engineering student at VIT-AP. I'm developing my skills in programming, web development, databases, and deployment tools.</p>
+            <p>My projects range from Python utilities and portfolio websites to an IoT-based motion detection and alert system. I'm always looking for opportunities to improve my technical skills and build something meaningful.</p>
+          </article>
+          <aside class="panel quick-facts">
+            <h3>Quick facts</h3>
+            <div class="fact-list">
+              <div class="fact"><div class="fact-icon" aria-hidden="true">⌘</div><div><strong>Focus</strong><span>Software development and IoT</span></div></div>
+              <div class="fact"><div class="fact-icon" aria-hidden="true">⌁</div><div><strong>Currently learning</strong><span>Backend development, deployment, and system integration</span></div></div>
+              <div class="fact"><div class="fact-icon" aria-hidden="true">⌂</div><div><strong>Education</strong><span>VIT-AP University</span></div></div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-heading">
+          <span class="kicker">My toolkit</span>
+          <h2>Skills I'm <span class="accent">working with</span></h2>
+          <p>A snapshot of the technologies used in my coursework and personal projects.</p>
+        </div>
+        <div class="skills-grid">
+          <article class="skill-card"><div class="skill-icon" aria-hidden="true">⌨️</div><h3>Programming</h3><p>Java, Python, C++, JavaScript, SQL</p></article>
+          <article class="skill-card"><div class="skill-icon" aria-hidden="true">🌐</div><h3>Web Development</h3><p>HTML5, CSS3, responsive layouts, basic frontend development</p></article>
+          <article class="skill-card"><div class="skill-icon" aria-hidden="true">🗄️</div><h3>Databases</h3><p>MySQL, MongoDB fundamentals</p></article>
+          <article class="skill-card"><div class="skill-icon" aria-hidden="true">⚙️</div><h3>Tools & IoT</h3><p>Git, GitHub, Docker, VS Code, ESP32-CAM</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-heading">
+          <span class="kicker">Selected work</span>
+          <h2>Projects I've <span class="accent">worked on</span></h2>
+          <p>Hands-on projects that help me connect concepts with real implementations.</p>
+        </div>
+        <div class="projects-grid">
+          <article class="project-card">
+            <div class="project-visual visual-cyan"><span aria-hidden="true">🛡️</span></div>
+            <div class="project-info">
+              <h3>Smart Motion Detection & Alert System</h3>
+              <p>An IoT security project concept using ESP32-CAM and a motion sensor to capture activity and send alerts. The planned design includes GSM notifications, image logging, and authorized-user identification.</p>
+              <div class="project-tags"><span>ESP32-CAM</span><span>IoT</span><span>Python / Embedded</span><span>GSM</span></div>
+            </div>
+          </article>
+          <article class="project-card">
+            <div class="project-visual visual-purple"><span aria-hidden="true">📁</span></div>
+            <div class="project-info">
+              <h3>File Destroyer</h3>
+              <p>A Python utility designed to securely remove selected files by overwriting their contents before deletion. Built to explore file handling and data security concepts.</p>
+              <div class="project-tags"><span>Python</span><span>File Handling</span><span>Security Concepts</span></div>
+            </div>
+          </article>
+          <article class="project-card">
+            <div class="project-visual visual-pink"><span aria-hidden="true">🐳</span></div>
+            <div class="project-info">
+              <h3>Portfolio Website with Docker</h3>
+              <p>A personal portfolio website packaged in a Docker container and served with Nginx, exploring image builds, version tags, and local deployment.</p>
+              <div class="project-tags"><span>HTML</span><span>CSS</span><span>Docker</span><span>Nginx</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="container">
+        <div class="section-heading">
+          <span class="kicker">Education</span>
+          <h2>My learning <span class="accent">journey</span></h2>
+        </div>
+        <article class="panel education-card">
+          <div class="education-icon" aria-hidden="true">🎓</div>
+          <div>
+            <h3>Engineering Student</h3>
+            <div class="school">VIT-AP University</div>
+            <p>Focused on building a strong foundation in programming, computer science, and hands-on technical projects.</p>
+            <p><strong>Note:</strong> Add your exact degree, graduation year, and CGPA here if you want them displayed publicly.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="panel contact-panel">
+          <span class="kicker">Let's connect</span>
+          <h2>Have an idea? <span class="accent">Let's talk.</span></h2>
+          <p>I'm open to connecting with fellow learners, collaborating on projects, and exploring opportunities to grow as a developer.</p>
+          <div class="contact-links">
+            <!-- Replace the example email and profile URLs below with your real details. -->
+            <a class="btn btn-primary" href="mailto:your.email@example.com">✉ Email me</a>
+            <a class="btn btn-secondary" href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+            <a class="btn btn-secondary" href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Kannan N. Built with curiosity and code.</span>
+      <a class="back-top" href="#home">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile navigation
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+      menuToggle.textContent = isOpen ? '✕' : '☰';
+    });
+
+    // Close the mobile menu after choosing a section
+    navLinks.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Open navigation menu');
+        menuToggle.textContent = '☰';
+      });
+    });
+
+    // Keep the footer year current
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
